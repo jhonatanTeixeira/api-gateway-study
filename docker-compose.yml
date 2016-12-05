@@ -1,0 +1,53 @@
+version: '2'
+
+services:
+    service1:
+        image: php:7-apache
+        volumes: 
+            - ./service1/:/var/www/html
+
+    service2:
+        image: php:7-apache
+        volumes: 
+            - ./service2/:/var/www/html
+
+    service3:
+        image: php:7-apache
+        volumes: 
+            - ./service3/:/var/www/html
+
+    service4:
+        image: php:7-apache
+        volumes: 
+            - ./service4/:/var/www/html
+
+    kong-database:
+        image: cassandra:2.2
+
+    gateway:
+        image: kong
+        links:
+            - kong-database:kong-database
+            - service1
+            - service2
+            - service3
+            - service4
+        environment:
+            - KONG_DATABASE=cassandra
+            - KONG_CASSANDRA_CONTACT_POINTS=kong-database
+            - KONG_PG_HOST=kong-database
+        ports:
+            - 8000:8000
+            - 8443:8443
+            - 8001:8001
+            - 7946:7946
+            - 7946:7946/udp
+    
+    gateway_front:
+        image: rsdevigo/jungle
+#        environment:
+#            - KONGURL=http://gateway:8000
+        links:
+            - gateway:localhost
+        ports:
+            - 3000:3000
