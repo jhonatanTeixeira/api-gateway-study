@@ -3,22 +3,22 @@ version: '2'
 services:
     service1:
         image: php:7-apache
-        volumes: 
+        volumes:
             - ./service1/:/var/www/html
 
     service2:
         image: php:7-apache
-        volumes: 
+        volumes:
             - ./service2/:/var/www/html
 
     service3:
         image: php:7-apache
-        volumes: 
+        volumes:
             - ./service3/:/var/www/html
 
     service4:
         image: php:7-apache
-        volumes: 
+        volumes:
             - ./service4/:/var/www/html
 
     kong-database:
@@ -42,12 +42,10 @@ services:
             - 8001:8001
             - 7946:7946
             - 7946:7946/udp
-    
+
     gateway_front:
-        image: rsdevigo/jungle
-#        environment:
-#            - KONGURL=http://gateway:8000
+        image: pgbi/kong-dashboard
         links:
             - gateway:localhost
         ports:
-            - 3000:3000
+            - 3000:8080
