@@ -4,7 +4,7 @@ sudo docker-compose exec gateway curl -i -X POST \
   --url http://localhost:8001/apis \
   --data 'name=usuarios' \
   --data 'upstream_url=http://service1/usuarios.php' \
-  --data 'request_host=localhost'
+  --data 'request_host=usuarios'
 
 sudo docker-compose exec gateway curl -i -X POST \
   --url http://localhost:8001/apis \
