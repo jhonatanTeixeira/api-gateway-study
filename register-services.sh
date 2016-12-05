@@ -1,4 +1,4 @@
-!#/bin/bash
+#!/bin/bash
 
 sudo docker-compose exec gateway curl -i -X POST \
   --url http://localhost:8001/apis \
